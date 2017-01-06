@@ -16,7 +16,6 @@ me = "YOUR_EMAIL"
 password = "YOUR PASSWORD"
 kindle = "YOUR KINDLE EMAIL"
 
-files_to_send = False
 pdf_files = []
 epub_files = []
 mobi_files = []
@@ -27,9 +26,7 @@ def parse_files(lst):
     global pdf_files
     global epub_files
     global mobi_files
-    pdf_files = list(set(pdf_files)) # remove duplicates
-    epub_files = list(set(epub_files))
-    mobi_files = list(set(mobi_files))
+    lst = list(set(lst)) # remove duplicates
     for file in lst:
         if file.endswith(".pdf"):
             pdf_files += [file]
@@ -43,7 +40,6 @@ def parse_files(lst):
 # check if they actually exist
 
 def verify_files():
-    global files_to_send
     for pdf_file in pdf_files:
         if not os.path.isfile(pdf_file):
             pdf_files.remove(pdf_file)
@@ -56,13 +52,12 @@ def verify_files():
         if not os.path.isfile(mobi_file):
             mobi_files.remove(mobi_file)
             print("Unable to locate the file " + mobi_file)
-    if epub_files or pdf_files or mobi_files:
-        files_to_send = True
 
 # convert the files
 
 def convert_files():
     print("Converting files...")
+    global mobi_files
     for epub_file in epub_files:
         mobi_name = epub_file[:-4] + "mobi"
         print("Trying to convert " + epub_file)
@@ -70,7 +65,6 @@ def convert_files():
             print(mobi_name + " already exists.")
             mobi_files += [mobi_name]
         elif call(["ebook-convert", epub_file, mobi_name]) == 0:
-            global mobi_files
             mobi_files += [mobi_name]
             print("Successfully converted " + epub_file + " to .mobi.")
         else:
@@ -161,7 +155,7 @@ if args.send:
     parse_files(args.send)
     verify_files()
     convert_files()
-    if files_to_send:
+    if pdf_files or mobi_files:
         send_files()
 
 elif args.all:
