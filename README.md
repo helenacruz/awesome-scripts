@@ -1,4 +1,4 @@
-# awesome crap
+# awesome-crap
 I may have spent more time writing these scripts than actually doing what they do by hand but where's the fun in that?
 
 ## tomobi.sh
