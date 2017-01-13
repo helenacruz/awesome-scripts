@@ -26,6 +26,14 @@ def parse_files(lst):
     global pdf_files
     global epub_files
     global mobi_files
+    if len(lst) == 1 and lst[0] == '*':
+        lst = []
+        dir = os.getcwd()
+        for file in os.listdir(dir):
+            if os.path.isfile(file):
+                if file.endswith(".pdf") or file.endswith(".epub") or \
+                   file.endswith(".mobi"):
+                    lst += [file]
     lst = list(set(lst)) # remove duplicates
     for file in lst:
         if file.endswith(".pdf"):
