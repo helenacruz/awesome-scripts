@@ -6,17 +6,27 @@ from bs4 import BeautifulSoup
 srtfiles = []
 
 if len(sys.argv) < 2:
-    print("Usage: -all for sending all *.srt files recursively in this" +
-          " folder or file1.srt ... fileN.srt")
+    print("Usage: -all folder for sending all *.srt files recursively in folder" +
+          " or file1.srt ... fileN.srt")
     sys.exit(1)
-elif len(sys.argv) == 2 and sys.argv[1] == "-all": # -all
-    directory = os.getcwd()
-    for root, subFolders, files in os.walk(directory):
-        for file in files:
-            relDir = os.path.relpath(root, directory)
-            relFile = os.path.join(relDir, file)
-            if file.endswith(".srt"):
-                srtfiles += [relFile]
+
+elif len(sys.argv) == 3 and sys.argv[1] == "-all": # -all
+    directory = sys.argv[2]
+    if os.path.isdir(directory):
+        for root, subFolders, files in os.walk(directory):
+            for file in files:
+                relDir = os.path.relpath(root, directory)
+                relFile = os.path.join(relDir, file)
+                if file.endswith(".srt"):
+                    srtfiles += [relFile]
+    else:
+        print(directory + " is not a valid directory")
+
+elif len(sys.argv) != 3 and sys.argv[1] == "-all":
+    print("Usage: -all folder for sending all *.srt files recursively in folder" +
+          " or file1.srt ... fileN.srt")
+    sys.exit(1)
+
 else:
     for file in sys.argv[1:]:
         if not file.endswith(".srt"):
