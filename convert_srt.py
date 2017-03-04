@@ -22,6 +22,7 @@ elif len(sys.argv) == 3 and sys.argv[1] == "-all": # -all
                     srtfiles += [relFile]
     else:
         print(directory + " is not a valid directory")
+        sys.exit(1)
 
 # folder missing
 elif len(sys.argv) != 3 and sys.argv[1] == "-all":
