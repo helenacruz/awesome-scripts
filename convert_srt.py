@@ -10,6 +10,7 @@ if len(sys.argv) < 2:
           " or file1.srt ... fileN.srt")
     sys.exit(1)
 
+# converts all files recursively in a folder
 elif len(sys.argv) == 3 and sys.argv[1] == "-all": # -all
     directory = sys.argv[2]
     if os.path.isdir(directory):
@@ -22,11 +23,13 @@ elif len(sys.argv) == 3 and sys.argv[1] == "-all": # -all
     else:
         print(directory + " is not a valid directory")
 
+# folder missing
 elif len(sys.argv) != 3 and sys.argv[1] == "-all":
     print("Usage: -all folder for sending all *.srt files recursively in folder" +
           " or file1.srt ... fileN.srt")
     sys.exit(1)
 
+# converts all given files
 else:
     for file in sys.argv[1:]:
         if not file.endswith(".srt"):
