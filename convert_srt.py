@@ -50,8 +50,8 @@ for srtfile in srtfiles:
                         # two so oopsy
     encoding = soup.original_encoding
 
-    if encoding == "utf-16le":
-        print(srtfile + " is already in UTF-16\n")
+    if encoding == "utf-8":
+        print(srtfile + " is already in UTF-8\n")
         continue
 
     print(srtfile + " is in " + encoding)
@@ -59,7 +59,7 @@ for srtfile in srtfiles:
 
     with codecs.open(srtfile, "r", encoding) as source_file:
         filename = os.path.splitext(srtfile)[0] + "utf.srt" 
-        with codecs.open(filename, "w", "utf-16") as target_file:
+        with codecs.open(filename, "w", "utf-8") as target_file:
             try:
                 contents = source_file.read()
                 target_file.write(contents)
