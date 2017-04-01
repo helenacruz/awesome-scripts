@@ -49,8 +49,8 @@ python3 kindle.py -all folder
 
 ## convert_srt.py
 
-Converts .srt files to UTF-16 encoding. It's meant to convert portuguese
-files so it might not work perfectly with some encodings (in particular 
+Converts .srt files to UTF-8 encoding. It's meant to convert portuguese
+subtitles so it might not work perfectly with some encodings (in particular 
 don't even try IBM855 or Windows-1255).
 
 You can convert all .srt files recursively in some folder:
